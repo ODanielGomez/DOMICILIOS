@@ -1,0 +1,22 @@
+workflows:
+  ios-workflow:
+    name: iOS Flutter Build
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+
+    environment:
+      flutter: stable
+
+    scripts:
+      - name: Get Flutter dependencies
+        script: |
+          cd domicilios_app
+          flutter pub get
+
+      - name: Build iOS
+        script: |
+          cd domicilios_app
+          flutter build ios --release --no-codesign
+
+    artifacts:
+      - domicilios_app/build/ios/iphoneos/*.app
